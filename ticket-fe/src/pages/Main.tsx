@@ -1,6 +1,12 @@
+import NavBar from "components/NavBar";
+import { Outlet } from "react-router-dom";
+
 export default function Main() {
     return (
-        <p>메인입니다.</p>
+        <>
+            <Outlet />
+            <NavBar />
+        </>
     );
 
 }

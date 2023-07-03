@@ -1,4 +1,3 @@
-import './App.css';
 import { useEffect } from "react";
 import {
   createBrowserRouter,
@@ -8,6 +7,9 @@ import {
 } from 'react-router-dom';
 import Login from 'pages/Login';
 import Main from "pages/Main";
+import Ticket from "pages/ticket/Ticket";
+import Schedule from "pages/Schedule";
+import MyData from "pages/MyData";
 
 const router = createBrowserRouter([
   {
@@ -19,10 +21,16 @@ const router = createBrowserRouter([
     element: <Main />,
     children: [
       {
+        path: "tickets",
+        element: <Ticket />,
       },
       {
+        path: "schedule",
+        element: <Schedule />,
       },
       {
+        path: "profile",
+        element: <MyData />,
       },
     ],
   }
