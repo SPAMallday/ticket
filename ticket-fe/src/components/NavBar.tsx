@@ -5,15 +5,22 @@ import {
     Today as TodayIcon,
     AccountBox as ProfileIcon,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const [value, setValue] = useState<number>(0);
+  const navigate = useNavigate();
 
-  // 0에서 0을 클릭해도 바뀌는가?
-  // TODO navigation 연결
   useEffect(() => {
-    if (value == 0) {}
-    else if (value == 1) {}
+    if (value === 0) {
+      navigate('tickets');
+    }
+    else if (value === 1) {
+      navigate('schedule');
+    }
+    else if (value === 2) {
+      navigate('profile');
+    }
   }, [value]);
 
   return (

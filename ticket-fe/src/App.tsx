@@ -5,11 +5,12 @@ import {
   RouterProvider,
   Route,
 } from 'react-router-dom';
-import Login from 'pages/Login';
-import Main from "pages/Main";
-import Ticket from "pages/ticket/Ticket";
-import Schedule from "pages/Schedule";
-import MyData from "pages/MyData";
+import Login from 'routes/Login';
+import Ticket from "routes/ticket/Ticket";
+import Schedule from "routes/Schedule";
+import MyData from "routes/MyData";
+import ErrorPage from "routes/Error";
+import Root from "routes/Root";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Main />,
+    element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "tickets",
