@@ -24,13 +24,14 @@ export default function NavBar() {
   }, [value]);
 
   return (
-    <Box sx={{ width: "100vw"}}>
+    <Box sx={{width: "100vw"}}>
       <BottomNavigation
         showLabels
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        sx={{ borderTop:1, borderTopColor:"#c1c1c1"}}
       >
         <BottomNavigationAction label="회원권" icon={<TicketIcon />} />
         <BottomNavigationAction label="일정" icon={<TodayIcon />} />
