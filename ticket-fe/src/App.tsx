@@ -4,14 +4,16 @@ import {
   createRoutesFromElements,
   RouterProvider,
   Route,
-} from 'react-router-dom';
-import Login from 'routes/Login';
+} from "react-router-dom";
+import Login from "routes/Login";
 import Ticket from "routes/ticket/Ticket";
 import Schedule from "routes/Schedule";
 import MyData from "routes/MyData";
 import ErrorPage from "routes/Error";
 import Root from "routes/Root";
 import TicketAll from "routes/ticket/TicketAll";
+import "./custom.css";
+import TicketEdit from "routes/ticket/TicketEdit";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
         element: <TicketAll />,
       },
       {
+        path: "tickets/edit",
+        element: <TicketEdit />,
+      },
+      {
         path: "schedule",
         element: <Schedule />,
       },
@@ -40,7 +46,7 @@ const router = createBrowserRouter([
         element: <MyData />,
       },
     ],
-  }
+  },
 ]);
 
 function App() {
