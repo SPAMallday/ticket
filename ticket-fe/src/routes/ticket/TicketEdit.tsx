@@ -1,9 +1,16 @@
-import { Avatar, Box, Card, Link, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  Link,
+  Typography,
+} from "@mui/material";
 import ReplyIcon from "@mui/icons-material/Reply";
-import TicketList from "components/TicketList";
+import AddIcon from "@mui/icons-material/AddCircleOutline";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-import TicketEditItem from "components/TicketEditItem";
+import TicketEditGroup from "components/TicketEditGroup";
 
 export default function TicketEdit() {
   const navigate = useNavigate();
@@ -39,10 +46,25 @@ export default function TicketEdit() {
           <Card
             variant='outlined'
             sx={{ borderStyle: "dashed", borderRadius: 3, mb: 0.5 }}
-          ></Card>
-          {/* 리스트로 수정 필요 */}
-          <TicketEditItem />
-          <TicketEditItem />
+            onClick={() => {
+              // TODO 클릭 시 모달 오픈
+              console.log("clicked");
+            }}
+          >
+            <CardContent sx={{ py: "0.5rem!important", textAlign: "center" }}>
+              <AddIcon />
+              <Typography
+                sx={{ mt: -1, fontSize: "0.8rem" }}
+                color='text.secondary'
+              >
+                추가
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <TicketEditGroup />
+          <TicketEditGroup />
+          <TicketEditGroup />
         </Box>
       </Box>
     </Box>

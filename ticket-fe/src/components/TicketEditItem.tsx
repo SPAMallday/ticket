@@ -2,7 +2,6 @@ import { Card, CardContent, Grid, Typography } from "@mui/material";
 import TimerIcon from "@mui/icons-material/TimerOutlined";
 import DeleteIcon from "@mui/icons-material/DeleteForever";
 
-// TODO 프랜차이즈 별로 묶는 디자인으로 변경 필요?
 const card = (
   <>
     <CardContent sx={{ py: "0.5rem!important" }}>
@@ -14,13 +13,13 @@ const card = (
         wrap='nowrap'
         sx={{ overflow: "hidden" }}
       >
-        <Grid container item direction={"column"} xs={8} wrap='nowrap'>
+        <Grid container item direction={"column"} xs={24} wrap='nowrap'>
           <Typography
             sx={{ fontWeight: 700, fontSize: "1.05rem" }}
             component='div'
             noWrap
           >
-            더클라임123123123123123 - 3개월권
+            3개월권
           </Typography>
           <Typography sx={{ fontSize: "0.8rem" }} color='text.secondary'>
             2023.03.01 ~ 2023.06.01
