@@ -1,0 +1,6 @@
+.MuiBottomNavigationAction-root.Mui-selected {
+  .MuiBottomNavigationAction-label {
+    font-weight: 600;
+  }
+  color: cadetblue !important;
+}
