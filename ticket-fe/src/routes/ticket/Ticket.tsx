@@ -5,7 +5,12 @@ import { green, teal } from "@mui/material/colors";
 // import ModifyIcon from "assets/img/pencil.png"
 import TicketList from "components/TicketList";
 
+import Link from '@mui/material/Link';
+import { useNavigate } from "react-router-dom";
+
 export default function Ticket() {
+    const navigate = useNavigate();
+    
     return (
         <Box sx={{ width: '100%' }}>
             <Stack>
@@ -13,13 +18,21 @@ export default function Ticket() {
                     <Box sx={{ display:"flex", alignItems:"center", justifyContent: "space-between", mb:1}}>
                         <Typography variant="h6" fontWeight={700}>현재 회원권</Typography>
                         {/* <Avatar alt="Modify ticket" src={ModifyIcon} sx={{width:"1.3rem", height:"1.3rem"}}/> */}
+                        <Link>
                         <Avatar alt="Modify ticket" sx={{ width: "1.5rem", height: "1.5rem", bgcolor: green[500] }}>
                             <EditIcon sx={{ width: "1.1rem", height: "1.1rem" }} />
-                        </Avatar>
+                            </Avatar>
+                            </Link>
                     </Box>
                     <Box>
                         <TicketList />
-                        <Typography fontSize="0.8rem" color="text.secondary" sx={{textAlign:"right"}}>모두 보기</Typography>
+                        <Link
+                            underline="none"
+                            onClick={() => {
+                            navigate("all");
+                        }}>
+                            <Typography fontSize="0.8rem" color="text.secondary" sx={{ textAlign: "right" }}>모두 보기</Typography>
+                        </Link>
                     </Box>
                 </Box>
                 <>

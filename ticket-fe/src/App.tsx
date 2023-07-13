@@ -11,6 +11,7 @@ import Schedule from "routes/Schedule";
 import MyData from "routes/MyData";
 import ErrorPage from "routes/Error";
 import Root from "routes/Root";
+import TicketAll from "routes/ticket/TicketAll";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "tickets",
         element: <Ticket />,
+      },
+      {
+        path: "tickets/all",
+        element: <TicketAll />,
       },
       {
         path: "schedule",
