@@ -88,12 +88,7 @@ export default function TicketEdit() {
 
       {/* 모달 파트 */}
       {/* 등록 모달 */}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography sx={{ fontWeight: 700, fontSize: "1.1rem", mb: 1 }}>
             등록
