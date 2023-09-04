@@ -4,6 +4,8 @@ import {
   Card,
   CardContent,
   Link,
+  Modal,
+  TextField,
   Typography,
 } from "@mui/material";
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -11,9 +13,26 @@ import AddIcon from "@mui/icons-material/AddCircleOutline";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import TicketEditGroup from "components/TicketEditGroup";
+import { useState } from "react";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "90vw",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function TicketEdit() {
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -66,6 +85,23 @@ export default function TicketEdit() {
           <TicketEditGroup />
         </Box>
       </Box>
+
+      {/* 모달 파트 */}
+      {/* 등록 모달 */}
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={style}>
+          <Typography sx={{ fontWeight: 700, fontSize: "1.1rem", mb: 1 }}>
+            등록
+          </Typography>
+          <Typography>센터명</Typography>
+          <TextField></TextField>
+          <Typography>종류</Typography>
+          <Typography>기간</Typography>
+          <Typography>시작일</Typography>
+          <Typography>일자 지정</Typography>
+          <Typography>가격</Typography>
+        </Box>
+      </Modal>
     </Box>
   );
 }
