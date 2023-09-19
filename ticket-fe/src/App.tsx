@@ -14,6 +14,7 @@ import Root from "routes/Root";
 import TicketAll from "routes/ticket/TicketAll";
 import "./custom.css";
 import TicketEdit from "routes/ticket/TicketEdit";
+import TicketAdd from "routes/ticket/TicketAdd";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "tickets/edit",
         element: <TicketEdit />,
+      },
+      {
+        path: "tickets/edit/add",
+        element: <TicketAdd />,
       },
       {
         path: "schedule",
