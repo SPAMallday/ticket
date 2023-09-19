@@ -2,27 +2,22 @@ import {
   Autocomplete,
   Avatar,
   Box,
-  Card,
-  CardContent,
-  Container,
   FormControl,
   FormControlLabel,
-  Grid,
-  Link,
+  MenuItem,
   Modal,
   Radio,
   RadioGroup,
+  Select,
+  SelectChangeEvent,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
-import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/AddCircleOutline";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-import TicketEditGroup from "components/TicketEditGroup";
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 const style = {
   position: "absolute" as "absolute",
@@ -43,13 +38,18 @@ export default function TicketAdd() {
   };
 
   const [gym, setGym] = useState<GymOptionType | null>(null);
-  const handleGymChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // setGym(e.target.);
+  const handleGymChange = (s: GymOptionType | null) => {
+    setGym(s);
   };
 
   const [ticketType, setTicketType] = useState("period");
   const handleTicketTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTicketType(e.target.value);
+  };
+
+  const [month, setMonth] = useState<number | string>("");
+  const handleMonthChange = (event: SelectChangeEvent<typeof month>) => {
+    setMonth(Number(event.target.value) || "");
   };
 
   const navigate = useNavigate();
@@ -88,9 +88,16 @@ export default function TicketAdd() {
               센터명
             </Typography>
             <Autocomplete
+              value={gym}
+              onChange={(event: any, newValue: GymOptionType | null) => {
+                handleGymChange(newValue);
+              }}
               {...defaultProps}
               id='auto-complete'
               autoHighlight
+              isOptionEqualToValue={(option, value) =>
+                option.name === value.name
+              }
               renderInput={(params) => (
                 <TextField {...params} variant='standard' />
               )}
@@ -123,7 +130,25 @@ export default function TicketAdd() {
               />
             </RadioGroup>
           </Box>
-          <Typography fontWeight={700}>기간</Typography>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Typography fontWeight={700}>기간</Typography>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
+              <Select value={month} onChange={handleMonthChange} displayEmpty>
+                <MenuItem value=''>
+                  <em>직접 선택</em>
+                </MenuItem>
+                <MenuItem value={1}>1개월</MenuItem>
+                <MenuItem value={2}>2개월</MenuItem>
+                <MenuItem value={3}>3개월</MenuItem>
+                <MenuItem value={6}>6개월</MenuItem>
+                <MenuItem value={12}>12개월</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
           <Typography fontWeight={700}>시작일</Typography>
           <Typography fontWeight={700}>종료일</Typography>
           <Typography fontWeight={700}>가격</Typography>
@@ -151,12 +176,30 @@ interface GymOptionType {
 }
 
 const gymList = [
-  { name: "더 클라임 서울대점", id: 1 },
-  { name: "더 클라임 강남점", id: 2 },
-  { name: "더 클라임 신림점", id: 3 },
-  { name: "더 클라임 양재점", id: 4 },
-  { name: "더 클라임 연남점", id: 5 },
-  { name: "더 플라스틱 클라이밍 염창", id: 6 },
-  { name: "더 플라스틱 클라이밍 문래", id: 7 },
+  { name: "더 클라임 서울대", id: 1 },
+  { name: "더 클라임 강남", id: 2 },
+  { name: "더 클라임 신림", id: 3 },
+  { name: "더 클라임 양재", id: 4 },
+  { name: "더 클라임 연남", id: 5 },
+  { name: "더 클라임 홍대 B", id: 6 },
+  { name: "더 클라임 사당", id: 7 },
+  { name: "더 클라임 신사", id: 8 },
+  { name: "더 클라임 일산", id: 9 },
+  { name: "더 클라임 마곡", id: 10 },
+  { name: "더 플라스틱 클라이밍 염창", id: 11 },
+  { name: "더 플라스틱 클라이밍 문래", id: 12 },
+  { name: "알레 클라이밍 혜화", id: 13 },
+  { name: "알레 클라이밍 영등포", id: 14 },
+  { name: "알레 클라이밍 강동", id: 15 },
+  { name: "서울숲 클라이밍 뚝섬", id: 16 },
+  { name: "서울숲 클라이밍 영등포", id: 17 },
+  { name: "서울숲 클라이밍 잠실", id: 18 },
+  { name: "서울숲 클라이밍 구로", id: 19 },
+  { name: "클라이밍 파크 종로", id: 19 },
+  { name: "클라이밍 파크 한티", id: 20 },
+  { name: "클라이밍 파크 신논현", id: 21 },
+  { name: "클라이밍 파크 성수", id: 22 },
+  { name: "손상원 클라이밍짐 잠실", id: 23 },
+  { name: "손상원 클라이밍짐 강남", id: 24 },
   { name: "직접 입력", id: 0o0 },
 ];
