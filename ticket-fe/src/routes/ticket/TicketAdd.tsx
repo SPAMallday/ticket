@@ -149,9 +149,49 @@ export default function TicketAdd() {
               </Select>
             </FormControl>
           </Box>
-          <Typography fontWeight={700}>시작일</Typography>
-          <Typography fontWeight={700}>종료일</Typography>
-          <Typography fontWeight={700}>가격</Typography>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            {/* # select date using material ui */}
+            <Typography fontWeight={700}>시작일</Typography>
+            <TextField
+              type='date'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              size='small'
+            />
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Typography fontWeight={700}>종료일</Typography>
+            <TextField
+              type='date'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              size='small'
+            />
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Typography fontWeight={700}>가격</Typography>
+            <TextField
+              type='number'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              size='small'
+            />
+          </Box>
         </Stack>
       </Box>
 
