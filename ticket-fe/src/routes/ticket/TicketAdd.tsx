@@ -2,10 +2,13 @@ import {
   Autocomplete,
   Avatar,
   Box,
+  Button,
   FormControl,
   FormControlLabel,
+  Grid,
+  IconButton,
+  InputAdornment,
   MenuItem,
-  Modal,
   Radio,
   RadioGroup,
   Select,
@@ -17,19 +20,13 @@ import {
 import CancelIcon from "@mui/icons-material/Cancel";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90vw",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { ChangeEvent, useEffect, useState } from "react";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs, { Dayjs } from "dayjs";
+import { MobileDatePicker } from "@mui/x-date-pickers";
+import { koKR } from "@mui/x-date-pickers/locales";
+import { Done } from "@mui/icons-material";
 
 export default function TicketAdd() {
   const defaultProps = {
@@ -37,6 +34,7 @@ export default function TicketAdd() {
     getOptionLabel: (option: GymOptionType) => option.name,
   };
 
+  // state 모음
   const [gym, setGym] = useState<GymOptionType | null>(null);
   const handleGymChange = (s: GymOptionType | null) => {
     setGym(s);
@@ -52,15 +50,45 @@ export default function TicketAdd() {
     setMonth(Number(event.target.value) || "");
   };
 
+  const [startDate, setStartDate] = useState<Dayjs | null>(dayjs());
+  const handleStartDateChange = (s: Dayjs | null) => {
+    // console.log(s?.toDate().toLocaleDateString());
+    setStartDate(s);
+  };
+
+  const [endDate, setEndDate] = useState<Dayjs | null>(dayjs());
+  const handleEndDateChange = (s: Dayjs | null) => {
+    // console.log(s?.toDate().toLocaleDateString());
+    setEndDate(s);
+  };
+
+  const [price, setPrice] = useState<number | string>("");
+  const handlePriceChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    console.log(Number(event.target.value));
+    setPrice(Number(event.target.value) || "");
+  };
+
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  useEffect(() => {
+    if (typeof month === "number") {
+      handleEndDateChange(startDate?.add(month, "month")!);
+    } else {
+      handleEndDateChange(startDate);
+    }
+  }, [month, startDate]);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ mb: 1 }}>
+    <LocalizationProvider
+      dateAdapter={AdapterDayjs}
+      localeText={
+        koKR.components.MuiLocalizationProvider.defaultProps.localeText
+      }
+    >
+      <Box sx={{ width: "100%", mb: 1 }}>
+        {/* 타이틀 */}
         <Box
           sx={{
             display: "flex",
@@ -82,7 +110,9 @@ export default function TicketAdd() {
             <CancelIcon sx={{ width: "1.1rem", height: "1.1rem" }} />
           </Avatar>
         </Box>
+
         <Stack spacing={2} sx={{ mt: 3 }}>
+          {/* 센터명 선택 */}
           <Box>
             <Typography fontWeight={700} sx={{ mb: 1 }}>
               센터명
@@ -103,6 +133,8 @@ export default function TicketAdd() {
               )}
             />
           </Box>
+
+          {/* 회원권 종류 선택 */}
           <Box>
             <Typography fontWeight={700}>종류</Typography>
             <RadioGroup
@@ -130,83 +162,114 @@ export default function TicketAdd() {
               />
             </RadioGroup>
           </Box>
-          <Box
-            display={"flex"}
+
+          {/* 기간 선택 */}
+          <Grid
+            container
             alignItems={"center"}
             justifyContent={"space-between"}
           >
             <Typography fontWeight={700}>기간</Typography>
-            <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
-              <Select value={month} onChange={handleMonthChange} displayEmpty>
-                <MenuItem value=''>
-                  <em>직접 선택</em>
-                </MenuItem>
-                <MenuItem value={1}>1개월</MenuItem>
-                <MenuItem value={2}>2개월</MenuItem>
-                <MenuItem value={3}>3개월</MenuItem>
-                <MenuItem value={6}>6개월</MenuItem>
-                <MenuItem value={12}>12개월</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <Box
-            display={"flex"}
+            <Grid item xs={6}>
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size='small'>
+                <Select value={month} onChange={handleMonthChange} displayEmpty>
+                  <MenuItem value=''>
+                    <em>직접 선택</em>
+                  </MenuItem>
+                  <MenuItem value={1}>1개월</MenuItem>
+                  <MenuItem value={2}>2개월</MenuItem>
+                  <MenuItem value={3}>3개월</MenuItem>
+                  <MenuItem value={6}>6개월</MenuItem>
+                  <MenuItem value={12}>12개월</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+
+          {/* 시작일 선택 */}
+          <Grid
+            container
             alignItems={"center"}
             justifyContent={"space-between"}
           >
-            {/* # select date using material ui */}
             <Typography fontWeight={700}>시작일</Typography>
-            <TextField
-              type='date'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              size='small'
-            />
-          </Box>
-          <Box
-            display={"flex"}
+            <Grid item xs={6}>
+              <MobileDatePicker
+                views={["year", "month", "day"]}
+                format='YYYY년 MM월 DD일'
+                slotProps={{
+                  textField: { size: "small" },
+                  toolbar: { hidden: true },
+                }}
+                value={startDate}
+                onChange={(newValue) => handleStartDateChange(newValue)}
+              />
+            </Grid>
+          </Grid>
+
+          {/* 종료일 선택 */}
+          <Grid
+            container
             alignItems={"center"}
             justifyContent={"space-between"}
           >
             <Typography fontWeight={700}>종료일</Typography>
-            <TextField
-              type='date'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              size='small'
-            />
-          </Box>
-          <Box
-            display={"flex"}
+            <Grid item xs={6}>
+              <MobileDatePicker
+                views={["year", "month", "day"]}
+                format='YYYY년 MM월 DD일'
+                slotProps={{
+                  textField: { size: "small" },
+                  toolbar: { hidden: true },
+                }}
+                value={endDate}
+                onChange={(newValue) => handleEndDateChange(newValue)}
+              />
+            </Grid>
+          </Grid>
+
+          {/* 가격 입력 */}
+          <Grid
+            container
             alignItems={"center"}
             justifyContent={"space-between"}
           >
             <Typography fontWeight={700}>가격</Typography>
-            <TextField
-              type='number'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              size='small'
-            />
-          </Box>
+            <Grid item xs={6}>
+              <TextField
+                value={price}
+                onChange={(event) => {
+                  handlePriceChange(event);
+                }}
+                size='small'
+                variant='outlined'
+                type='number'
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>원</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
         </Stack>
-      </Box>
 
-      {/* 모달 파트 */}
-      {/* 등록 모달 */}
-      <Modal open={open} onClose={handleClose}>
-        <Box sx={style}>
-          <Typography sx={{ fontWeight: 700, fontSize: "1.1rem", mb: 1 }}>
-            센터 검색
-          </Typography>
-
-          <TextField></TextField>
+        {/* 등록 버튼 */}
+        {/* TODO 
+        1.State Validation
+        2. 수정불가 확인 팝업 출력 및 제출 */}
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            variant='contained'
+            startIcon={<Done />}
+            onClick={() => {}}
+            sx={{ mt: "20%" }}
+          >
+            완료
+          </Button>
         </Box>
-      </Modal>
-    </Box>
+      </Box>
+    </LocalizationProvider>
   );
 }
 
