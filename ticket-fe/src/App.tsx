@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import {
   createBrowserRouter,
-  createRoutesFromElements,
   RouterProvider,
-  Route,
 } from "react-router-dom";
 import Login from "routes/Login";
 import Ticket from "routes/ticket/Ticket";
