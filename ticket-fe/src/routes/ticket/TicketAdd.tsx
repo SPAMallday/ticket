@@ -3,10 +3,14 @@ import {
   Avatar,
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   Grid,
-  IconButton,
   InputAdornment,
   MenuItem,
   Radio,
@@ -35,12 +39,24 @@ export default function TicketAdd() {
   };
 
   // state 모음
+
+  // dialog 파트
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const [gym, setGym] = useState<GymOptionType | null>(null);
   const handleGymChange = (s: GymOptionType | null) => {
     setGym(s);
   };
 
-  const [ticketType, setTicketType] = useState("period");
+  const [ticketType, setTicketType] = useState<string>("period");
   const handleTicketTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTicketType(e.target.value);
   };
@@ -62,12 +78,30 @@ export default function TicketAdd() {
     setEndDate(s);
   };
 
+  const [times, setTimes] = useState<number | string>("");
+  const handleTimesChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = event.target.value;
+
+    if (value === "") {
+      setTimes("");
+    } else {
+      setTimes(Number(value) || 0);
+    }
+  };
+
   const [price, setPrice] = useState<number | string>("");
   const handlePriceChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(Number(event.target.value));
-    setPrice(Number(event.target.value) || "");
+    const value = event.target.value;
+
+    if (value === "") {
+      setPrice("");
+    } else {
+      setPrice(Number(value) || 0);
+    }
   };
 
   const navigate = useNavigate();
@@ -79,6 +113,38 @@ export default function TicketAdd() {
       handleEndDateChange(startDate);
     }
   }, [month, startDate]);
+
+  function vaildation() {
+    if (!gym) {
+      alert("센터명을 선택해주세요.");
+      return false;
+    }
+
+    if (ticketType !== "period" && (times === "" || times === null)) {
+      alert("횟수를 입력해주세요.");
+      return false;
+    }
+
+    if (price === "" || price === null) {
+      alert("가격을 입력해주세요.");
+      return false;
+    }
+
+    return true;
+  }
+
+  const handleSubmit = () => {
+    if (vaildation()) {
+      handleClickOpen();
+    }
+  };
+
+  // TODO state 모아서 전달
+  const handleDialogDone = () => {
+    handleClose();
+    navigate("../tickets");
+    return;
+  };
 
   return (
     <LocalizationProvider
@@ -169,7 +235,7 @@ export default function TicketAdd() {
             alignItems={"center"}
             justifyContent={"space-between"}
           >
-            <Typography fontWeight={700}>기간</Typography>
+            <Typography fontWeight={700}>유효기간</Typography>
             <Grid item xs={6}>
               <FormControl sx={{ minWidth: 120, width: "100%" }} size='small'>
                 <Select value={month} onChange={handleMonthChange} displayEmpty>
@@ -185,6 +251,33 @@ export default function TicketAdd() {
               </FormControl>
             </Grid>
           </Grid>
+
+          {/* 횟수 입력  */}
+          {ticketType !== "period" && (
+            <Grid
+              container
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Typography fontWeight={700}>횟수</Typography>
+              <Grid item xs={6}>
+                <TextField
+                  value={times}
+                  onChange={(event) => {
+                    handleTimesChange(event);
+                  }}
+                  size='small'
+                  variant='outlined'
+                  type='number'
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position='end'>회</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            </Grid>
+          )}
 
           {/* 시작일 선택 */}
           <Grid
@@ -253,22 +346,35 @@ export default function TicketAdd() {
             </Grid>
           </Grid>
         </Stack>
-
-        {/* 등록 버튼 */}
-        {/* TODO 
-        1.State Validation
-        2. 수정불가 확인 팝업 출력 및 제출 */}
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            variant='contained'
-            startIcon={<Done />}
-            onClick={() => {}}
-            sx={{ mt: "20%" }}
-          >
-            완료
-          </Button>
-        </Box>
       </Box>
+      {/* 등록 버튼 */}
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "15%",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        <Button variant='contained' startIcon={<Done />} onClick={handleSubmit}>
+          완료
+        </Button>
+      </Box>
+      {/* 확인 Dialog */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{"주의"}</DialogTitle>
+        <DialogContent sx={{ width: "80vw" }}>
+          <DialogContentText textAlign={"center"}>
+            등록 시 수정이 불가합니다. <br /> 다시 한 번 확인해주세요!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>취소</Button>
+          <Button onClick={handleDialogDone} autoFocus>
+            등록
+          </Button>
+        </DialogActions>
+      </Dialog>
     </LocalizationProvider>
   );
 }
