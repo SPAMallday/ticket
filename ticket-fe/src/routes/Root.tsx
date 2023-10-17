@@ -12,7 +12,7 @@ export default function Root() {
         justifyContent: "space-between",
       }}
     >
-      <Box px={3} pt={2} overflow={"scroll"}>
+      <Box px={3} pt={2} height={"100%"} overflow={"scroll"}>
         <Outlet />
       </Box>
       <NavBar />
