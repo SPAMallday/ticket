@@ -79,10 +79,12 @@ export default function TicketEdit() {
             </CardContent>
           </Card>
 
-          <TicketEditGroup props={handleOpen} />
+          <TicketEditGroup open={handleOpen} />
           <TicketEditGroup />
           <TicketEditGroup />
         </Box>
+
+        {/* TODO Modal 내용 props로 연결 */}
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
             <Typography variant='h6' component='h2'>

@@ -2,13 +2,11 @@ import { Card, CardContent, Grid, Typography } from "@mui/material";
 import TimerIcon from "@mui/icons-material/TimerOutlined";
 import DeleteIcon from "@mui/icons-material/DeleteForever";
 
-const card = <></>;
-
-type ModalProps = {
+type CustomModalProps = {
   open: () => void;
 };
 
-export default function TicketEditItem({ open }: ModalProps) {
+export default function TicketEditItem({ open }: CustomModalProps) {
   const handleOpen = () => open();
 
   return (
@@ -22,7 +20,6 @@ export default function TicketEditItem({ open }: ModalProps) {
           wrap='nowrap'
           sx={{ overflow: "hidden" }}
         >
-          {/* TODO 디자인 수정 및 Modal Open 수정*/}
           <Grid container item direction={"column"} xs={24} wrap='nowrap'>
             <Typography
               sx={{ fontWeight: 700, fontSize: "1.05rem" }}

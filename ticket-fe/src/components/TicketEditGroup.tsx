@@ -8,8 +8,7 @@ export default function TicketEditGroup(props: any) {
         더클라임
       </Typography>
       <Divider sx={{ my: 1 }} />
-      <TicketEditItem open={props} />
-      <TicketEditItem open={props} />
+      <TicketEditItem open={props.open} />
     </Box>
   );
 }
