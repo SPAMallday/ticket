@@ -6,5 +6,4 @@
 일정, 정보 탭은 예정
 
 ERD
-![image](https://github.com/SPAMallday/ticket/assets/81751267/c93a9bc6-2c76-440b-88cb-b018c29a06df)
-
+![image](https://github.com/SPAMallday/ticket/assets/81751267/7104db19-eab6-452d-b1f9-8ef6e2332e60)
