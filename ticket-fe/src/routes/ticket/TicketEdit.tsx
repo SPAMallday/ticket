@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   Link,
+  Modal,
   Typography,
 } from "@mui/material";
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -11,9 +12,26 @@ import AddIcon from "@mui/icons-material/AddCircleOutline";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import TicketEditGroup from "components/TicketEditGroup";
+import { useState } from "react";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function TicketEdit() {
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -61,10 +79,18 @@ export default function TicketEdit() {
             </CardContent>
           </Card>
 
-          <TicketEditGroup />
+          <TicketEditGroup props={handleOpen} />
           <TicketEditGroup />
           <TicketEditGroup />
         </Box>
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={style}>
+            <Typography variant='h6' component='h2'>
+              회원권 정지
+            </Typography>
+            <Typography sx={{ mt: 2 }}>현재 정지 횟수</Typography>
+          </Box>
+        </Modal>
       </Box>
     </Box>
   );
