@@ -13,6 +13,7 @@ const card = (
         wrap='nowrap'
         sx={{ overflow: "hidden" }}
       >
+        {/* TODO 디자인 수정 및 반응 추가 */}
         <Grid container item direction={"column"} xs={24} wrap='nowrap'>
           <Typography
             sx={{ fontWeight: 700, fontSize: "1.05rem" }}
@@ -23,6 +24,9 @@ const card = (
           </Typography>
           <Typography sx={{ fontSize: "0.8rem" }} color='text.secondary'>
             2023.03.01 ~ 2023.06.01
+          </Typography>
+          <Typography sx={{ fontSize: "0.8rem" }} color='text.secondary'>
+            정지 횟수 : 1회
           </Typography>
         </Grid>
         <Grid
