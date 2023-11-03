@@ -67,14 +67,17 @@ export default function TicketStopModal({
                     </StackBox>
                     <StackBox>
                         <LabelTypo>정지일 수</LabelTypo>
+                        {/* TODO 정지일 수 선택 (1~2주 or 직접 선택) */}
                         <Typography>{modalContent?.stopCnt}</Typography>
                     </StackBox>
                     <Box sx={{ mt: 2 }}>
                         <LabelTypo>정지 기간 선택</LabelTypo>
+                        {/* TODO 날짜 선택 2개 필요 */}
                         달력~
                     </Box>
                     <StackBox>
                         <LabelTypo>회원권 재개일</LabelTypo>
+                        {/* TODO 정지일 수, 시작일 선택 시 자동 계산 */}
                         <Typography>2023.03.08</Typography>
                     </StackBox>
 
