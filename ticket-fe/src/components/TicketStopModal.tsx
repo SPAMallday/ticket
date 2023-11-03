@@ -52,7 +52,6 @@ export default function TicketStopModal({
 
     return (
         <>
-            {/* TODO Modal 내용 props로 연결 */}
             <Modal open={open} onClose={handleClose}>
                 <Box sx={style}>
                     <Typography
