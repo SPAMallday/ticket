@@ -1,4 +1,3 @@
-import * as React from "react";
 import dayjs, { Dayjs } from "dayjs";
 import Badge from "@mui/material/Badge";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -6,6 +5,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
+import { koKR } from "@mui/x-date-pickers";
+import { useEffect, useRef, useState } from "react";
 
 function getRandomNumber(min: number, max: number) {
     return Math.round(Math.random() * (max - min) + min);
@@ -29,7 +30,7 @@ function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
     });
 }
 
-const initialValue = dayjs("2022-04-17");
+const initialValue = dayjs();
 
 function ServerDay(
     props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }
@@ -56,9 +57,9 @@ function ServerDay(
 }
 
 export default function CustomCalendar() {
-    const requestAbortController = React.useRef<AbortController | null>(null);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+    const requestAbortController = useRef<AbortController | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [highlightedDays, setHighlightedDays] = useState([1, 2, 15]);
 
     const fetchHighlightedDays = (date: Dayjs) => {
         const controller = new AbortController();
@@ -79,7 +80,7 @@ export default function CustomCalendar() {
         requestAbortController.current = controller;
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetchHighlightedDays(initialValue);
         // abort request on unmount
         return () => requestAbortController.current?.abort();
@@ -97,8 +98,14 @@ export default function CustomCalendar() {
         fetchHighlightedDays(date);
     };
 
+    // TODO React-calendar로 변경?
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            localeText={
+                koKR.components.MuiLocalizationProvider.defaultProps.localeText
+            }
+        >
             <DateCalendar
                 defaultValue={initialValue}
                 loading={isLoading}
@@ -112,6 +119,8 @@ export default function CustomCalendar() {
                         highlightedDays,
                     } as any,
                 }}
+                views={["day"]}
+                sx={{ width: "auto" }}
             />
         </LocalizationProvider>
     );
