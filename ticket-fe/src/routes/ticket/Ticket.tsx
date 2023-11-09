@@ -1,7 +1,6 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { green, teal } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
 // import ModifyIcon from "assets/img/pencil.png"
 import TicketList from "components/TicketList";
 
