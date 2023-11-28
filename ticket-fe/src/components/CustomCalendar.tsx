@@ -1,17 +1,28 @@
 import dayjs, { Dayjs } from "dayjs";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import {
+    Component,
+    MouseEvent,
+    ReactComponentElement,
+    ReactElement,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import Calendar from "react-calendar";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
 // 달력 CSS
 import "react-calendar/dist/Calendar.css";
 import "./Calendar.css";
-import { Box } from "@mui/material";
+import { Box, Icon, IconProps } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 function getRandomNumber(min: number, max: number) {
     return Math.round(Math.random() * (max - min) + min);
 }
+
+const initialValue = dayjs();
 
 // TODO 실제 데이터 호출 시 변경
 function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
@@ -31,8 +42,6 @@ function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
         };
     });
 }
-
-const initialValue = dayjs();
 
 export default function CustomCalendar() {
     const requestAbortController = useRef<AbortController | null>(null);
@@ -95,34 +104,6 @@ export default function CustomCalendar() {
         return <div className='dotDiv'>{html}</div>;
     };
 
-    const WrapNavNext = (props: any) => {
-        return (
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-            >
-                <NavigateNext>{props.children}</NavigateNext>
-            </Box>
-        );
-    };
-
-    const WrapNavPrev = (props: any) => {
-        return (
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-            >
-                <NavigateBefore>{props.children}</NavigateBefore>
-            </Box>
-        );
-    };
-
     return (
         <Box mt={2} mb={2}>
             <Calendar
@@ -133,8 +114,16 @@ export default function CustomCalendar() {
                 maxDetail='month' // 상단 네비게이션에서 '월' 단위만 보이게 설정
                 next2Label={null} // 1년 후 버튼 숨김
                 prev2Label={null} // 1년 전 버튼 숨김
-                nextLabel={<WrapNavNext />}
-                prevLabel={<WrapNavPrev />}
+                nextLabel={
+                    <div className='wrapNav'>
+                        <NavigateNext />
+                    </div>
+                }
+                prevLabel={
+                    <div className='wrapNav'>
+                        <NavigateBefore />
+                    </div>
+                }
                 showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
                 formatDay={(locale, date) => dayjs(date).format("D")} // 날'일' 제외하고 숫자만 보이도록 설정
                 // 달력 값, 함수 세팅

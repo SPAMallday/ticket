@@ -116,3 +116,9 @@ abbr[title] {
     left: 50%;
     transform: translateX(-50%);
 }
+
+.wrapNav {
+    display: "flex";
+    align-items: "center";
+    justify-content: "center";
+}
