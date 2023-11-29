@@ -10,9 +10,9 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import AddIcon from "@mui/icons-material/AddCircleOutline";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-import TicketEditGroup from "components/TicketEditGroup";
+import TicketEditGroup from "components/ticket/TicketEditGroup";
 import { useEffect, useState } from "react";
-import TicketStopModal from "components/TicketStopModal";
+import TicketStopModal from "components/ticket/TicketStopModal";
 
 interface ModalContent {
     ticketId: number;
