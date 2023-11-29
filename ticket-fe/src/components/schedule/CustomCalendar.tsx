@@ -1,22 +1,18 @@
 import dayjs, { Dayjs } from "dayjs";
-import {
-    Component,
-    MouseEvent,
-    ReactComponentElement,
-    ReactElement,
-    useEffect,
-    useRef,
-    useState,
-} from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
 // 달력 CSS
 import "react-calendar/dist/Calendar.css";
 import "./Calendar.css";
-import { Box, Icon, IconProps } from "@mui/material";
+import { Box } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+
+interface CalendarProps {
+    focusDate: Date | null;
+    dateChange: (value: Value, event: MouseEvent<HTMLButtonElement>) => void;
+}
 
 function getRandomNumber(min: number, max: number) {
     return Math.round(Math.random() * (max - min) + min);
@@ -43,16 +39,18 @@ function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
     });
 }
 
-export default function CustomCalendar() {
+export default function CustomCalendar({
+    focusDate,
+    dateChange,
+}: CalendarProps) {
+    const handleDateChange = (
+        value: Value,
+        event: MouseEvent<HTMLButtonElement>
+    ) => dateChange(value, event);
+
     const requestAbortController = useRef<AbortController | null>(null);
     // const [isLoading, setIsLoading] = useState(false);   로딩 화면 구성 시
     const [highlightedDays, setHighlightedDays] = useState([0]);
-
-    const [focusDate, setFocusDate] = useState<Date | null>(new Date());
-    const handleDateChange = (v: Value, e: MouseEvent<HTMLButtonElement>) => {
-        const temp = new Date(v?.toString()!);
-        setFocusDate(temp);
-    };
 
     useEffect(() => {
         // fetchHighlightedDays(initialValue);
