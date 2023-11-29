@@ -2,7 +2,7 @@ import { Avatar, Box, Stack, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { green } from "@mui/material/colors";
 // import ModifyIcon from "assets/img/pencil.png"
-import TicketList from "components/TicketList";
+import TicketList from "components/ticket/TicketList";
 
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";

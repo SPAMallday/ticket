@@ -9,7 +9,7 @@ import {
     TypographyProps,
     styled,
 } from "@mui/material";
-import ColorButton from "./ColorButton";
+import ColorButton from "../ColorButton";
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import {
