@@ -134,7 +134,6 @@ export default function TicketStopModal({
                     </StackBox>
                     <Box sx={{ mt: 2 }}>
                         <LabelTypo sx={{ mb: 2 }}>정지 기간 선택</LabelTypo>
-                        {/* TODO 날짜 선택 2개 필요 */}
                         <Grid
                             container
                             alignItems={"center"}
@@ -189,13 +188,6 @@ export default function TicketStopModal({
                             직접 선택을 통해 종료일 수정이 가능합니다.
                         </Typography>
                     </StackBox>
-                    {/*                     
-                    <StackBox>
-                        <LabelTypo>회원권 재개일</LabelTypo>
-                        // TODO 정지일 수, 시작일 선택 시 자동 계산 
-                        <Typography>2023.03.08</Typography>
-                    </StackBox> 
-                    */}
 
                     <Box
                         mt={3}
