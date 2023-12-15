@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
     res.send("Typescript + Node.js + Express Server 라우터 테스트");
 });
 // DB 연결
+// TODO 이대로 DataSource를 가져다 써도 되는가?
 db_1.AppDataSource.initialize()
     .then(() => __awaiter(void 0, void 0, void 0, function* () {
     console.log("[DB]: Data Source has been initialized!");
