@@ -4,7 +4,7 @@ import VisitList from "components/schedule/VisitList";
 import { MouseEvent, useState } from "react";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
-//TODO 일정 등록 만들기
+//TODO *일정 등록 만들기
 export default function Schedule() {
     const [focusDate, setFocusDate] = useState<Date | null>(new Date());
     const handleDateChange = (v: Value, e: MouseEvent<HTMLButtonElement>) => {
