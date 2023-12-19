@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppDataSource = void 0;
 const typeorm_1 = require("typeorm");
 const dotenv_1 = __importDefault(require("dotenv"));
+const Brand_1 = require("./models/Brand");
+const Partner_1 = require("./models/Partner");
+const User_1 = require("./models/User");
+const Center_1 = require("./models/Center");
 dotenv_1.default.config();
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
@@ -16,7 +20,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: "db",
     synchronize: true,
     logging: false,
-    entities: [],
+    entities: [User_1.User, Brand_1.Brand, Partner_1.Partner, Center_1.Center],
     migrations: [],
     subscribers: [],
 });
