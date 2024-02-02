@@ -4,6 +4,9 @@ import { Brand } from "./models/Brand";
 import { Partner } from "./models/Partner";
 import { User } from "./models/User";
 import { Center } from "./models/Center";
+import { Freeze } from "./models/Freeze";
+import { Ticket } from "./models/Ticket";
+import { Visit } from "./models/Visit";
 
 dotenv.config();
 
@@ -16,7 +19,7 @@ export const AppDataSource = new DataSource({
     database: "db",
     synchronize: true,
     logging: false,
-    entities: [User, Brand, Partner, Center], // 사용할 엔티티 목록
+    entities: [User, Brand, Partner, Center, Freeze, Ticket, Visit], // 사용할 엔티티 목록
     migrations: [],
     subscribers: [],
 });
