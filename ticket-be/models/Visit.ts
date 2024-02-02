@@ -22,8 +22,14 @@ export class Visit extends BaseEntity {
     @Column({ comment: "다회차감" })
     count?: number;
 
+    // 지점은 개별 저장
+    @Column({ comment: "지점ID" })
+    center_id!: number;
+
+    @Column({ comment: "브랜드ID" })
+    brand_id!: number;
+
     // Relations
-    // TODO 참조 관계 ERD 수정 후 반영이 필요
     @ManyToOne((type) => Ticket, (ticket) => ticket.ticket_id, {
         onDelete: "CASCADE",
     })
