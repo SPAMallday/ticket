@@ -10,6 +10,9 @@ const Brand_1 = require("./models/Brand");
 const Partner_1 = require("./models/Partner");
 const User_1 = require("./models/User");
 const Center_1 = require("./models/Center");
+const Freeze_1 = require("./models/Freeze");
+const Ticket_1 = require("./models/Ticket");
+const Visit_1 = require("./models/Visit");
 dotenv_1.default.config();
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
@@ -20,7 +23,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: "db",
     synchronize: true,
     logging: false,
-    entities: [User_1.User, Brand_1.Brand, Partner_1.Partner, Center_1.Center],
+    entities: [User_1.User, Brand_1.Brand, Partner_1.Partner, Center_1.Center, Freeze_1.Freeze, Ticket_1.Ticket, Visit_1.Visit],
     migrations: [],
     subscribers: [],
 });
