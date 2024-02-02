@@ -10,11 +10,16 @@ import TicketAll from "routes/ticket/TicketAll";
 import "./custom.css";
 import TicketEdit from "routes/ticket/TicketEdit";
 import TicketAdd from "routes/ticket/TicketAdd";
+import Auth from "routes/Auth";
 
 const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login />,
+    },
+    {
+        path: "/auth",
+        element: <Auth />,
     },
     {
         path: "/",
