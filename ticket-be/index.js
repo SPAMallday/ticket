@@ -17,18 +17,22 @@ const ticket_1 = __importDefault(require("./routes/ticket"));
 const schedule_1 = __importDefault(require("./routes/schedule"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
 const db_1 = require("./db");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const ticketRoute = ticket_1.default;
 const port = process.env.SERVER_PORT;
 app.use(express_1.default.json()); // 클라이언트 요청 body를 json으로 파싱
+// TODO [배포 시] CORS 설정 변경 필요
+let corsOptions = {
+    origin: "http://localhost:3000",
+    credentials: true,
+};
+app.use((0, cors_1.default)(corsOptions));
+// 서버 가동 시 메세지
 app.listen(port, () => {
     console.log(`[SERVER]: Server is running at port ${port}`);
-});
-// 테스트 완료 지우기
-app.get("/", (req, res) => {
-    res.send("Typescript + Node.js + Express Server 라우터 테스트");
 });
 // DB 연결
 // TODO 이대로 DataSource를 가져다 써도 되는가?

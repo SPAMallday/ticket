@@ -1,15 +1,10 @@
 import axios, { Axios, AxiosRequestConfig } from "axios";
+import { Request, Response } from "express";
+import { getToken } from "../services/authService";
 
-// TODO 연결 후 code 수정 필요
-const getToken: Axios = axios.create({
-    baseURL: "https://kauth.kakao.com/oauth/token",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-    },
-    data: {
-        grant_type: "authorization_code",
-        client_id: process.env.KAKAO_REST_API_KEY,
-        redirect_uri: process.env.KAKAO_REDIRECT_URI,
-        code: "",
-    },
-});
+export async function getTokenHandler(req: Request, res: Response) {
+    const code = req.query.code as string;
+    const result = await getToken(code);
+
+    return res.json({ msg: "END", result: result });
+}
