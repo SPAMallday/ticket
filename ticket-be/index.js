@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const ticket_1 = __importDefault(require("./routes/ticket"));
 const schedule_1 = __importDefault(require("./routes/schedule"));
+const auth_1 = __importDefault(require("./routes/auth"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const db_1 = require("./db");
 dotenv_1.default.config();
@@ -38,3 +39,4 @@ db_1.AppDataSource.initialize()
     .catch((error) => console.log(error));
 app.use("/ticket", ticketRoute); // ticket 라우터 연결
 app.use("/schedule", schedule_1.default); // schedule 라우터 연결
+app.use("/auth", auth_1.default); // schedule 라우터 연결

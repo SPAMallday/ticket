@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import TicketRouter from "./routes/ticket";
 import ScheduleRouter from "./routes/schedule";
+import AuthRouter from "./routes/auth";
 import dotenv from "dotenv";
 import { AppDataSource } from "./db";
 
@@ -31,3 +32,4 @@ AppDataSource.initialize()
 
 app.use("/ticket", ticketRoute); // ticket 라우터 연결
 app.use("/schedule", ScheduleRouter); // schedule 라우터 연결
+app.use("/auth", AuthRouter); // schedule 라우터 연결
