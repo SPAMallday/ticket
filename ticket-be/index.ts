@@ -3,6 +3,7 @@ import TicketRouter from "./routes/ticket";
 import ScheduleRouter from "./routes/schedule";
 import AuthRouter from "./routes/auth";
 import dotenv from "dotenv";
+import cors from "cors";
 import { AppDataSource } from "./db";
 
 dotenv.config();
@@ -13,13 +14,16 @@ const port = process.env.SERVER_PORT;
 
 app.use(express.json()); // 클라이언트 요청 body를 json으로 파싱
 
+// TODO [배포 시] CORS 설정 변경 필요
+let corsOptions = {
+    origin: "http://localhost:3000",
+    credentials: true,
+};
+app.use(cors(corsOptions));
+
+// 서버 가동 시 메세지
 app.listen(port, () => {
     console.log(`[SERVER]: Server is running at port ${port}`);
-});
-
-// 테스트 완료 지우기
-app.get("/", (req: Request, res: Response) => {
-    res.send("Typescript + Node.js + Express Server 라우터 테스트");
 });
 
 // DB 연결
