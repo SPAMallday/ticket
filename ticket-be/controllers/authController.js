@@ -14,7 +14,7 @@ const authService_1 = require("../services/authService");
 function getTokenHandler(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const code = req.query.code;
-        const result = yield (0, authService_1.getToken)(code);
+        const result = yield (0, authService_1.getAuth)(code);
         return res.json({ msg: "END", result: result });
     });
 }
