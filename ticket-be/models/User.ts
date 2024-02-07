@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { AppDataSource } from "../db";
 
 @Entity()
 export class User extends BaseEntity {
@@ -7,6 +8,4 @@ export class User extends BaseEntity {
 
     @Column("bigint")
     kakao_id!: number;
-
-    // TODO 사용할 함수들 모두 작성
 }

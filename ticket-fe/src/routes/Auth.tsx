@@ -8,11 +8,11 @@ export default function Auth() {
 
     useEffect(() => {
         // 중복 인증 요청 방지
-        const controller = new AbortController();
+        // const controller = new AbortController();
 
         sendCode("auth", {
             params: { code: code },
-            signal: controller.signal,
+            // signal: controller.signal,
         })
             .then((res) => {
                 // 토큰 받기 성공
@@ -33,7 +33,7 @@ export default function Auth() {
                 }
             });
 
-        return () => controller.abort();
+        // return () => controller.abort();
     }, []);
 
     if (!code) {
