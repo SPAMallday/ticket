@@ -10,16 +10,20 @@ import { Visit } from "./models/Visit";
 
 dotenv.config();
 
-export const AppDataSource = new DataSource({
-    type: "mysql",
-    host: "localhost",
+export const DBOptions = {
+    host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
     username: process.env.DB_USER_NAME,
     password: process.env.DB_USER_PASSWORD,
     database: "db",
+};
+
+export const AppDataSource = new DataSource({
+    type: "mysql",
     synchronize: true,
     logging: false,
     entities: [User, Brand, Partner, Center, Freeze, Ticket, Visit], // 사용할 엔티티 목록
     migrations: [],
     subscribers: [],
+    ...DBOptions,
 });

@@ -1,10 +1,12 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import TicketRouter from "./routes/ticket";
 import ScheduleRouter from "./routes/schedule";
 import AuthRouter from "./routes/auth";
 import dotenv from "dotenv";
 import cors from "cors";
-import { AppDataSource } from "./db";
+import { AppDataSource, DBOptions } from "./db";
+import session from "express-session";
+const MySQLStore = require("express-mysql-session")(session);
 
 dotenv.config();
 
@@ -27,13 +29,41 @@ app.listen(port, () => {
 });
 
 // DB 연결
-// TODO 이대로 DataSource를 가져다 써도 되는가?
+// TypeORM
 AppDataSource.initialize()
     .then(async () => {
         console.log("[DB]: Data Source has been initialized!");
     })
     .catch((error) => console.log(error));
 
+// AuthSession
+const sessionStore = new MySQLStore({
+    clearExpired: true, // 만료 세션 자동 삭제
+    checkExpirationInterval: 1800000, // 세션 만료 삭제 주기 = 30분 (milliseconds)
+    expiration: 86400000 * 3, // 세션 유효 기간 = 3일 (milliseconds)
+    ...DBOptions,
+});
+
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET!,
+        store: sessionStore,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+        },
+    })
+);
+
+sessionStore
+    .onReady()
+    .then(() => {
+        console.log("[DB]: AuthSession MySQLStore ready!");
+    })
+    .catch((error: any) => console.log(error));
+
+// 라우터
 app.use("/ticket", ticketRoute); // ticket 라우터 연결
 app.use("/schedule", ScheduleRouter); // schedule 라우터 연결
 app.use("/auth", AuthRouter); // schedule 라우터 연결
